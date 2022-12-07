@@ -178,10 +178,10 @@ if selected == "Movie Finder":
     if (len(choices)!=4):
         choices = data.columns[-4:]
     else:
-        nx, ny, ncol = choices[0], choices[1], choices[2] 
-        nz = choices[3]
+        nx, ny, nz = choices[0], choices[1], choices[2] 
+        ncol = choices[3]
 
-    fig = px.scatter_3d(data, x='4', y='1', z='2', color='3',
+    fig = px.scatter_3d(data, x=nx, y=ny, z=nz, color=ncol,
             hover_data={'name': True, 'runtime': ':.1f', 'year':True, f'{nx}':False, f'{ny}':False, f'{nz}':False, f'{ncol}':False},
             hover_name='name',)
 
@@ -244,8 +244,8 @@ if selected == "Movie Finder":
 
         #st.plotly_chart(fig)
         #st.write("Slider value :",r)
-        nx, ny, ncol = '1', '2', '3' #valeur bouton 1, valeur bouton 2, valeur bouton 3
-        nz = '2'
+        # nx, ny, ncol = '1', '2', '3' #valeur bouton 1, valeur bouton 2, valeur bouton 3
+        # nz = '2'
         fig2D = px.scatter(cf2, x=nx, y=ny, color=ncol)
 
         fig2D.update_layout(
@@ -271,10 +271,10 @@ if selected == "Movie Finder":
         name = df_result2["name"][0]
         fig3D = px.scatter_3d(
             data_frame=cf2,
-            x='1',
-            y='2',
-            z='3',
-            color=f'{ncol}',
+            x=nx,
+            y=ny,
+            z=nz,
+            color=ncol,
             opacity=0.7,
             # color_discrete_map={'Europe': 'black', 'Africa': 'yellow'},
             # symbol='Year',            # symbol used for bubble
