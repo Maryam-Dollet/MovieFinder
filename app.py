@@ -218,10 +218,13 @@ if selected == "Movie Finder":
         st.title(f"Results for {search_term}")
         st.write(df_result)
         st.subheader("{} results".format(num_df_result))
-        if df_result != 0:
-            displayFilms(df_result, len(df_result))
-        else:
-            st.markdown("No results")
+        try:
+            if len(df_result) != 0:
+                displayFilms(df_result, len(df_result))
+            else:
+                st.markdown("No results")
+        except:
+            st.error('No results')
         
     
     if search_submit2:
