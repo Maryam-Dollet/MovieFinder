@@ -309,7 +309,7 @@ if selected == "Movie Finder":
             if len(cf2) < 50:
                 displayFilms(cf2, len(cf2))
         except:
-            st.error(f"No Results for {search_term2}")
+            st.error(f"No Films named {search_term2}")
   
 if selected == "About":
     st.title("About us")
