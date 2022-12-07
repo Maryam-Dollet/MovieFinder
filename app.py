@@ -175,8 +175,10 @@ if selected == "Movie Finder":
 
     choices = st.multiselect("Display variables", data.columns[-10:])
 
-    if (len(choices)!=4):
+    if (len(choices)<4):
         choices = data.columns[-4:]
+        nx, ny, nz = choices[0], choices[1], choices[2] 
+        ncol = choices[3]
     else:
         nx, ny, nz = choices[0], choices[1], choices[2] 
         ncol = choices[3]
