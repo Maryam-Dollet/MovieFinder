@@ -174,9 +174,14 @@ if selected == "Movie Finder":
     st.write('FAMD 3D plot')
 
     choices = st.multiselect("Display variables", data.columns[-10:], default=['0','1','2','3'])
-    
-    nx, ny, nz = choices[0], choices[1], choices[2] 
-    ncol = choices[3]
+
+    if (len(choices)<4):
+        choices = data.columns[-10:-10+4]
+        nx, ny, nz = choices[0], choices[1], choices[2] 
+        ncol = choices[3]
+    else:
+        nx, ny, nz = choices[0], choices[1], choices[2] 
+        ncol = choices[3]
 
     fig = px.scatter_3d(data, x=nx, y=ny, z=nz, color=ncol,
             hover_data={'name': True, 'runtime': ':.1f', 'year':True, f'{nx}':False, f'{ny}':False, f'{nz}':False, f'{ncol}':False},
