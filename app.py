@@ -173,7 +173,7 @@ if selected == "Movie Finder":
 
     st.write('FAMD 3D plot')
 
-    choices = st.multiselect("Display variables", data.columns[-10:], default=[data.columns[-10:-6]])
+    choices = st.multiselect("Display variables", data.columns[-10:], default=data.columns[-10:-6])
     
     nx, ny, nz = choices[0], choices[1], choices[2] 
     ncol = choices[3]
