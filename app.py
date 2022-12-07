@@ -191,14 +191,17 @@ if selected == "Movie Finder":
 
     if len(filter) != 0:
         
-        st.title('Research by genre')
-        genre_results = df[df['is_in']== 1]
-        genre_results = genre_results.reset_index()
-        num_genre_results = len(genre_results)
-        st.write(genre_results)
-        st.subheader("{} results".format(num_genre_results))
+        try:
+            st.title('Research by genre')
+            genre_results = df[df['is_in']== 1]
+            genre_results = genre_results.reset_index()
+            num_genre_results = len(genre_results)
+            st.write(genre_results)
+            st.subheader("{} results".format(num_genre_results))
 
-        displayFilms(genre_results, 50)
+            displayFilms(genre_results, 50)
+        except:
+            st.error("No results")
         
 
     if search_submit:
