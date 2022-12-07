@@ -222,7 +222,7 @@ if selected == "Movie Finder":
             if len(df_result) != 0:
                 displayFilms(df_result, len(df_result))
             else:
-                st.markdown("No results")
+                st.error("No results")
         except:
             st.error('No results')
         
