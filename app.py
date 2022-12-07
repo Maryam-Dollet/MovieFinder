@@ -173,17 +173,10 @@ if selected == "Movie Finder":
 
     st.write('FAMD 3D plot')
 
-    choices = st.multiselect("Display variables", data.columns[-10:], default=['0','1','2','3'])
+    nx, ny, ncol = '1', '2', '3' 
+    nz = '2'
 
-    if (len(choices)<4):
-        choices = data.columns[-10:-10+4]
-        nx, ny, nz = choices[0], choices[1], choices[2] 
-        ncol = choices[3]
-    else:
-        nx, ny, nz = choices[0], choices[1], choices[2] 
-        ncol = choices[3]
-
-    fig = px.scatter_3d(data, x=nx, y=ny, z=nz, color=ncol,
+    fig = px.scatter_3d(data, x='4', y='1', z='2', color='3',
             hover_data={'name': True, 'runtime': ':.1f', 'year':True, f'{nx}':False, f'{ny}':False, f'{nz}':False, f'{ncol}':False},
             hover_name='name',)
 
@@ -191,26 +184,25 @@ if selected == "Movie Finder":
             margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor="LightSteelBlue"
         )
+    
+    fig.update_traces(marker_coloraxis=None)
 
     st.plotly_chart(fig)
 
     if len(filter) != 0:
-        try:
-            st.title('Research by genre')
-            genre_results = df[df['is_in']== 1]
-            genre_results = genre_results.reset_index()
-            num_genre_results = len(genre_results)
-            st.write(genre_results)
-            st.subheader("{} results".format(num_genre_results))
-            if genre_results != 0:
-                displayFilms(df_result, len(df_result))
-            else:
-                st.markdown("No results")
+        
+        st.title('Research by genre')
+        genre_results = df[df['is_in']== 1]
+        genre_results = genre_results.reset_index()
+        num_genre_results = len(genre_results)
+        st.write(genre_results)
+        st.subheader("{} results".format(num_genre_results))
 
-        except:
-            st.error('No results')
+        displayFilms(genre_results, 50)
+        
 
     if search_submit:
+        
         st.success("You searched for {}".format(search_term))
         df_result = df.loc[df['name'].str.contains(search_term, case=False)]
         df_result = df_result.reset_index(drop=True)
@@ -218,13 +210,10 @@ if selected == "Movie Finder":
         st.title(f"Results for {search_term}")
         st.write(df_result)
         st.subheader("{} results".format(num_df_result))
-        try:
-            if len(df_result) != 0:
-                displayFilms(df_result, len(df_result))
-            else:
-                st.error("No results")
-        except:
-            st.error('No results')
+        if len(df_result) > 50:
+            displayFilms(df_result, 50)
+        else:
+            displayFilms(df_result, len(df_result))
         
     
     if search_submit2:
@@ -312,13 +301,10 @@ if selected == "Movie Finder":
             st.plotly_chart(fig2D)
             st.plotly_chart(fig3D)
             st.subheader("{} results".format(len(cf2)))
-            if len(cf2) != 0:
-                if len(cf2) > 50:
-                    displayFilms(cf2, 50)
-                if len(cf2) < 50:
-                    displayFilms(cf2, len(cf2))
-            else:
-                st.markdown("No results")
+            if len(cf2) > 50:
+                displayFilms(cf2, 50)
+            if len(cf2) < 50:
+                displayFilms(cf2, len(cf2))
         except:
             st.error(f"No Results for {search_term2}")
   
