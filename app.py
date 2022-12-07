@@ -208,7 +208,7 @@ if selected == "Movie Finder":
                 st.markdown("No results")
 
         except:
-            st.error('This is an error')
+            st.error('No results')
 
     if search_submit:
         st.success("You searched for {}".format(search_term))
