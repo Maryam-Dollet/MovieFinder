@@ -202,8 +202,10 @@ if selected == "Movie Finder":
             num_genre_results = len(genre_results)
             st.write(genre_results)
             st.subheader("{} results".format(num_genre_results))
-
-            displayFilms(genre_results, 50)
+            if genre_results != 0:
+                displayFilms(df_result, len(df_result))
+            else:
+                st.markdown("No results")
 
         except:
             st.error('This is an error')
@@ -216,8 +218,10 @@ if selected == "Movie Finder":
         st.title(f"Results for {search_term}")
         st.write(df_result)
         st.subheader("{} results".format(num_df_result))
-
-        displayFilms(df_result, len(df_result))
+        if df_result != 0:
+            displayFilms(df_result, len(df_result))
+        else:
+            st.markdown("No results")
         
     
     if search_submit2:
@@ -304,10 +308,13 @@ if selected == "Movie Finder":
         st.plotly_chart(fig2D)
         st.plotly_chart(fig3D)
         st.subheader("{} results".format(len(cf2)))
-        if len(cf2) > 50:
-            displayFilms(cf2, 50)
-        if len(cf2) < 50:
-            displayFilms(cf2, len(cf2))
+        if len(cf2) != 0:
+            if len(cf2) > 50:
+                displayFilms(cf2, 50)
+            if len(cf2) < 50:
+                displayFilms(cf2, len(cf2))
+        else:
+            st.markdown("No results")
   
 if selected == "About":
     st.title("About us")
