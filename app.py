@@ -228,96 +228,99 @@ if selected == "Movie Finder":
         
     
     if search_submit2:
-        df_result2 = df.loc[df['name'].str.contains(search_term2, case=False)]
-        df_result2 = df_result2.reset_index()
-        num_df_result2 = len(df_result2)
-        st.success("You searched for {}".format(df_result2['name'][0]))
-        #cf = closeFilms(df_result2['name'][0],data, r=1)
-        cf2 = closeFilms2(df_result2['name'][0], data, data.keys()[-10:])
-        
-        #cf = cf.reset_index()
-        cf2 = cf2.reset_index(drop=True)
-        cf2 = cf2[cf2["dist"]<r]
-        st.write(cf2)
-        #cf = cf.drop(columns=["Unnamed: 0"])
-        #r = st.slider(label = 'R slider',min_value=0.00, max_value=2.00, step=0.01, value=1.00)
-        
-        #st.write(cf.head(10))
+        try:
+            df_result2 = df.loc[df['name'].str.contains(search_term2, case=False)]
+            df_result2 = df_result2.reset_index()
+            num_df_result2 = len(df_result2)
+            st.success("You searched for {}".format(df_result2['name'][0]))
+            #cf = closeFilms(df_result2['name'][0],data, r=1)
+            cf2 = closeFilms2(df_result2['name'][0], data, data.keys()[-10:])
+            
+            #cf = cf.reset_index()
+            cf2 = cf2.reset_index(drop=True)
+            cf2 = cf2[cf2["dist"]<r]
+            st.write(cf2)
+            #cf = cf.drop(columns=["Unnamed: 0"])
+            #r = st.slider(label = 'R slider',min_value=0.00, max_value=2.00, step=0.01, value=1.00)
+            
+            #st.write(cf.head(10))
 
-        #fig = px.scatter_3d(cf.head(10), x='4', y='1', z='2', color='3')
+            #fig = px.scatter_3d(cf.head(10), x='4', y='1', z='2', color='3')
 
-        #fig.update_layout(
-        #    margin=dict(l=0, r=0, t=0, b=0),
-        #    paper_bgcolor="LightSteelBlue"
-        #)
+            #fig.update_layout(
+            #    margin=dict(l=0, r=0, t=0, b=0),
+            #    paper_bgcolor="LightSteelBlue"
+            #)
 
-        #st.plotly_chart(fig)
-        #st.write("Slider value :",r)
-        # nx, ny, ncol = '1', '2', '3' #valeur bouton 1, valeur bouton 2, valeur bouton 3
-        # nz = '2'
-        fig2D = px.scatter(cf2, x=nx, y=ny, color=ncol)
+            #st.plotly_chart(fig)
+            #st.write("Slider value :",r)
+            nx, ny, ncol = '1', '2', '3' #valeur bouton 1, valeur bouton 2, valeur bouton 3
+            nz = '2'
+            fig2D = px.scatter(cf2, x=nx, y=ny, color=ncol)
 
-        fig2D.update_layout(
-            margin=dict(l=0, r=0, t=40, b=0),
-            paper_bgcolor="LightSteelBlue",
-            xaxis=dict(
+            fig2D.update_layout(
+                margin=dict(l=0, r=0, t=40, b=0),
+                paper_bgcolor="LightSteelBlue",
+                xaxis=dict(
+                    title={
+                        'text':f"Axe n° {nx}"},
+                    titlefont_size=16,
+                    tickfont_size=14
+                ),
+                yaxis=dict(
+                    title={
+                        'text':f"Axe n° {ny}"},
+                    titlefont_size=16,
+                    tickfont_size=14
+                ),
                 title={
-                    'text':f"Axe n° {nx}"},
-                titlefont_size=16,
-                tickfont_size=14
-            ),
-            yaxis=dict(
-                title={
-                    'text':f"Axe n° {ny}"},
-                titlefont_size=16,
-                tickfont_size=14
-            ),
-            title={
-                "text":f"Films en rapport avec {df_result2['name'][0]}"
-            }
-        )
-        
-        name = df_result2["name"][0]
-        fig3D = px.scatter_3d(
-            data_frame=cf2,
-            x=nx,
-            y=ny,
-            z=nz,
-            color=ncol,
-            opacity=0.7,
-            # color_discrete_map={'Europe': 'black', 'Africa': 'yellow'},
-            # symbol='Year',            # symbol used for bubble
-            # symbol_map={"2005": "square-open", "2010": 3},
-            # size='resized_pop',       # size of bubble
-            # size_max=50,              # set the maximum mark size when using size
-            # log_x=True,  # you can also set log_y and log_z as a log scale
-            # range_z=[9,13],           # you can also set range of range_y and range_x
-            # template='ggplot2',         # 'ggplot2', 'seaborn', 'simple_white', 'plotly',
-                                        # 'plotly_white', 'plotly_dark', 'presentation',
-                                        # 'xgridoff', 'ygridoff', 'gridon', 'none'
-            title=f'Films en rapport avec {name}',
-            # labels={'name':'name'},
-            hover_data={'name': True, 'runtime': ':.1f', 'year':True, f'{nx}':False, f'{ny}':False, f'{nz}':False, f'{ncol}':False},
-            hover_name='name',        # values appear in bold in the hover tooltip
-            # height=700,                 # height of graph in pixels
-            # animation_frame='year',   # assign marks to animation frames
-            # range_x=[500,100000],
-            # range_z=[0,14],
-            # range_y=[5,100]
-        )
-        fig3D.update_traces(marker_coloraxis=None)
-        
+                    "text":f"Films en rapport avec {df_result2['name'][0]}"
+                }
+            )
+            
+            name = df_result2["name"][0]
+            fig3D = px.scatter_3d(
+                data_frame=cf2,
+                x='1',
+                y='2',
+                z='3',
+                color=f'{ncol}',
+                opacity=0.7,
+                # color_discrete_map={'Europe': 'black', 'Africa': 'yellow'},
+                # symbol='Year',            # symbol used for bubble
+                # symbol_map={"2005": "square-open", "2010": 3},
+                # size='resized_pop',       # size of bubble
+                # size_max=50,              # set the maximum mark size when using size
+                # log_x=True,  # you can also set log_y and log_z as a log scale
+                # range_z=[9,13],           # you can also set range of range_y and range_x
+                # template='ggplot2',         # 'ggplot2', 'seaborn', 'simple_white', 'plotly',
+                                            # 'plotly_white', 'plotly_dark', 'presentation',
+                                            # 'xgridoff', 'ygridoff', 'gridon', 'none'
+                title=f'Films en rapport avec {name}',
+                # labels={'name':'name'},
+                hover_data={'name': True, 'runtime': ':.1f', 'year':True, f'{nx}':False, f'{ny}':False, f'{nz}':False, f'{ncol}':False},
+                hover_name='name',        # values appear in bold in the hover tooltip
+                # height=700,                 # height of graph in pixels
+                # animation_frame='year',   # assign marks to animation frames
+                # range_x=[500,100000],
+                # range_z=[0,14],
+                # range_y=[5,100]
+            )
+            fig3D.update_traces(marker_coloraxis=None)
+            
 
-        st.plotly_chart(fig2D)
-        st.plotly_chart(fig3D)
-        st.subheader("{} results".format(len(cf2)))
-        if len(cf2) != 0:
-            if len(cf2) > 50:
-                displayFilms(cf2, 50)
-            if len(cf2) < 50:
-                displayFilms(cf2, len(cf2))
-        else:
-            st.markdown("No results")
+            st.plotly_chart(fig2D)
+            st.plotly_chart(fig3D)
+            st.subheader("{} results".format(len(cf2)))
+            if len(cf2) != 0:
+                if len(cf2) > 50:
+                    displayFilms(cf2, 50)
+                if len(cf2) < 50:
+                    displayFilms(cf2, len(cf2))
+            else:
+                st.markdown("No results")
+        except:
+            st.error(f"No Results for {search_term2}")
   
 if selected == "About":
     st.title("About us")
